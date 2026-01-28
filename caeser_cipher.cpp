@@ -9,12 +9,12 @@ class CaeserCipher  {
         for (char c: plaintext) {
             int x = static_cast<int>(c);
             if (x >= 97 && x <= 122) {
-                ciphertext += (char)((x + shift) % (97 + 26));
+                ciphertext += (char)((x - 97 + shift) % 26 + 97);
             }
             else if (x >= 65 && x <= 90) {
-                ciphertext += (char)((x + shift) % (65 + 26));
+                ciphertext += (char)((x - 65 + shift) % 26 + 65);
             } else if (x >= 48 && x <= 57)   {
-                ciphertext += (char)((x + shift) % (65 + 10));
+                ciphertext += (char)((x - 48 + shift) % 10 + 48);
             }   else    {
                 ciphertext += c;
             }
@@ -28,12 +28,12 @@ class CaeserCipher  {
         for (char c: ciphertext) {
             int x = static_cast<int>(c);
             if (x >= 97 && x <= 122) {
-                plaintext += (char)((x - shift) % (97 + 26));
+                plaintext += (char)(((x - 97 - shift) % 26 + 26) % 26 + 97);
             }
             else if (x >= 65 && x <= 90) {
-                plaintext += (char)((x - shift) % (65 + 26));
+                plaintext += (char)(((x - 65 - shift) % 26 + 26) % 26 + 65);
             } else if (x >= 48 && x <= 57)   {
-                plaintext += (char)((x - shift) % (65 + 10));
+                plaintext += (char)(((x - 48 - shift) % 10 + 10) % 10 + 48);
             }   else    {
                 plaintext += c;
             }
