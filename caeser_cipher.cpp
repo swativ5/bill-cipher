@@ -3,18 +3,22 @@ using namespace std;
 
 class CaeserCipher  {
     public:
+    int gud_mod(int a, int b) {
+        return ((a % b) + b) % b;
+    }
+
+
     string encryption(string plaintext, int shift, int alphabetsize)    {
 
         string ciphertext = "";
         for (char c: plaintext) {
-            int x = static_cast<int>(c);
+            int x = c;
             if (x >= 97 && x <= 122) {
-                ciphertext += (char)((x - 97 + shift) % 26 + 97);
-            }
-            else if (x >= 65 && x <= 90) {
-                ciphertext += (char)((x - 65 + shift) % 26 + 65);
+                ciphertext += (char)(gud_mod(x - 97 + shift, 26) + 97);
+            } else if (x >= 65 && x <= 90) {
+                ciphertext += (char)(gud_mod(x - 65 + shift, 26) + 65);
             } else if (x >= 48 && x <= 57)   {
-                ciphertext += (char)((x - 48 + shift) % 10 + 48);
+                ciphertext += (char)(gud_mod(x - 48 + shift, 10) + 48);
             }   else    {
                 ciphertext += c;
             }
@@ -26,14 +30,13 @@ class CaeserCipher  {
     string decrpytion(string ciphertext, int shift, int alphabetsize)   {
         string plaintext = "";
         for (char c: ciphertext) {
-            int x = static_cast<int>(c);
+            int x = c;
             if (x >= 97 && x <= 122) {
-                plaintext += (char)(((x - 97 - shift) % 26 + 26) % 26 + 97);
-            }
-            else if (x >= 65 && x <= 90) {
-                plaintext += (char)(((x - 65 - shift) % 26 + 26) % 26 + 65);
+                plaintext += (char)(gud_mod(x - 97 - shift, 26) + 97);
+            } else if (x >= 65 && x <= 90) {
+                plaintext += (char)(gud_mod(x - 65 - shift, 26) + 65);
             } else if (x >= 48 && x <= 57)   {
-                plaintext += (char)(((x - 48 - shift) % 10 + 10) % 10 + 48);
+                plaintext += (char)(gud_mod(x - 48 - shift, 10) + 48);
             }   else    {
                 plaintext += c;
             }
